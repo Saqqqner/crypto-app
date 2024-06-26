@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto-app &ndash; Crypto-app</title>
+    <link rel="stylesheet" href="/cryptos/css/list-styles.css">
+
+    <script src="/cryptos/js/list.js"></script>
+
+</head>
+<body>
+<h1>Crypto-app</h1>
+
+<div id="header">
+    <select id="limitDropdown">
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+    </select>
+    <a data-th-href="@{'/user-api/crypto/favourites'}">Избранные товары</a>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th onclick="sortTable('cmcRank')">#</th>
+        <th onclick="sortTable('name')">Название</th>
+        <th onclick="sortTable('price')">Цена (USD)</th>
+        <th onclick="sortTable('percentChange1h')">1ч%</th>
+        <th onclick="sortTable('percentChange24h')">24ч%</th>
+        <th onclick="sortTable('marketCap')">Рыночная капитализация</th>
+        <th onclick="sortTable('circulatingSupply')">Циркулирующее предложение</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="crypto : ${cryptos}">
+        <td th:text="${crypto.cmcRank}"></td>
+        <td><a th:href="@{'/user-api/crypto/name/' + ${crypto.name}}" th:text="${crypto.name + ' (' + crypto.symbol + ')'}"></a></td>
+        <td th:text="${crypto.quote['USD'].getFormattedPrice()}"></td>
+        <td th:text="${crypto.quote['USD'].getFormattedPercentChange1h()}"
+        th:classappend="${crypto.quote['USD'].percentChange1h >= 0} ? 'positive-change' : 'negative-change'"></td>
+        <td th:text="${crypto.quote['USD'].getFormattedPercentChange24h()}"
+            th:classappend="${crypto.quote['USD'].percentChange24h >= 0} ? 'positive-change' : 'negative-change'"></td>
+        <td th:text="${crypto.quote['USD'].getFormattedMarketCap()}"></td>
+        <td th:text="${crypto.getFormattedCirculatingSupply()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

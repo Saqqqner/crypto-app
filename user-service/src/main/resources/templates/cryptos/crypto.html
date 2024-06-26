@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${crypto.name} + ' (' + ${crypto.symbol} + ')'">Название криптовалюты</title>
+    <link rel="stylesheet" href="/cryptos/css/crypto.css">
+</head>
+<body>
+<header>
+    <h1 th:text="${crypto.name} + ' (' + ${crypto.symbol} + ')'">Bitcoin (BTC)</h1>
+    <div class="btn-container">
+        <a class="btn" href="/user-api/crypto">Перейти к списку криптовалют</a>
+        <span th:class="${inFavourite ? 'favourite-btn filled' : 'favourite-btn empty'}"
+              th:data-crypto-name="${crypto.name}"
+              th:onclick="'toggleFavourite(this, ' + ${!inFavourite} + ')'"
+              th:text="${inFavourite ? '&#9733;' : '&#9734;'}">★</span>
+
+    </div>
+    <div>
+        <label for="currency">Выберите валюту:</label>
+        <select id="currency" name="currency" onchange="changeCurrency(this)">
+            <option value="USD">USD</option>
+            <option value="RUB">RUB</option>
+            <option value="BTC">BTC</option>
+        </select>
+    </div>
+</header>
+<main>
+    <section class="price-section">
+        <div class="price">
+            <h2 id="price" th:text="'$' + ${crypto.quote['USD'].getFormattedPrice()}">67,017.74</h2>
+            <p id="change" class="price-change"
+            th:text="${crypto.quote['USD'].getFormattedPercentChange24h()}"
+                th:classappend="${crypto.quote['USD'].percentChange24h >= 0} ? 'positive-change' : 'negative-change'"
+            </p>
+
+        </div>
+        <div class="stats">
+            <div>Рыночная капитализация:
+                <span id="marketCap" th:text="'$' + ${crypto.quote['USD'].getFormattedMarketCap()}">1.32T</span></div>
+            <div>Объем (за 24ч):
+                <span id="volume" th:text="'$' + ${crypto.quote['USD'].getFormattedVolume()}">24.09B</span></div>
+            <div>Оборотное предложение:
+                <span th:text="${crypto.getFormattedCirculatingSupply()} + ' ' +${crypto.symbol}">19.7M BTC</span></div>
+            <div>Максимальное предложение:
+                <span th:text="${crypto.getFormattedMaxSupply()} + ' ' +${crypto.symbol}">21M BTC</span></div>
+        </div>
+        <div class="popularity">
+
+            <div>В избранном:
+                <span id="favourite-count" th:text="${favouriteCount}">0</span>
+            </div>
+        </div>
+    </section>
+    <section class="comments-section">
+        <div th:each="comment : ${comments}"
+             th:if="${comment.parentId == null}"
+             th:data-id="${comment.id}"
+             th:data-crypto-name="${crypto.name}" onclick="redirectToComment(this)" class="comment-container">
+            <div class="comment-header">
+                <span class="username" th:text="${comment.username}">Username</span>
+                <span class="time" th:text="${#temporals.format(comment.createdAt, 'dd-MM-yyyy HH:mm:ss')}">5h</span>
+            </div>
+            <div class="comment-text" th:text="${comment.text}">Comment text...</div>
+        </div>
+        <div class="form-container">
+            <form th:action="@{'/user-api/crypto/name/' + ${crypto.name} + '/comments/add-comment'}"
+                  method="post" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" th:name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <textarea id="text" name="text" rows="4" placeholder="Add a comment..." required></textarea>
+                <button type="submit">Post</button>
+            </form>
+        </div>
+    </section>
+</main>
+<script src="/cryptos/js/crypto.js"></script>
+<script th:inline="javascript">
+    function changeCurrency(select) {
+        var currency = select.value;
+        console.log("Валюта изменена на: " + currency);
+        var price = document.getElementById("price");
+        var change = document.getElementById("change");
+        var marketCap = document.getElementById("marketCap");
+        var volume = document.getElementById("volume");
+
+        if (currency === "USD") {
+            price.textContent = "$" + /*[[${crypto.quote['USD'].getFormattedPrice()}]]*/ '67,017.74';
+            change.textContent = /*[[${crypto.quote['USD'].getFormattedPercentChange24h()}]]*/ '+0.08% (1д)';
+            marketCap.textContent = "$" + /*[[${crypto.quote['USD'].getFormattedMarketCap()}]]*/ '1.32T';
+            volume.textContent = "$" + /*[[${crypto.quote['USD'].getFormattedVolume()}]]*/ '24.09B';
+        } else if (currency === "RUB") {
+            price.textContent = "₽" + /*[[${crypto.quote['RUB'].getFormattedPrice()}]]*/ 'price in RUB';
+            change.textContent = /*[[${crypto.quote['RUB'].getFormattedPercentChange24h()}]]*/ 'change in RUB';
+            marketCap.textContent = "₽ " + /*[[${crypto.quote['RUB'].getFormattedMarketCap()}]]*/ 'market cap in RUB';
+            volume.textContent = "₽" + /*[[${crypto.quote['RUB'].getFormattedVolume()}]]*/ 'volume in RUB';
+        }else if (currency === "BTC") {
+            price.textContent = "BTC " + /*[[${crypto.quote['BTC'].getFormattedPrice()}]]*/+     'price in BTC';
+            change.textContent = /*[[${crypto.quote['BTC'].getFormattedPercentChange24h()}]]*/ 'change in BTC';
+            marketCap.textContent = "BTC " + /*[[${crypto.quote['BTC'].getFormattedMarketCap()}]]*/ 'market cap in BTC';
+            volume.textContent = "BTC " + /*[[${crypto.quote['BTC'].getFormattedVolume()}]]*/ 'volume in BTC';
+        }
+    }
+</script>
+</body>
+</html>
