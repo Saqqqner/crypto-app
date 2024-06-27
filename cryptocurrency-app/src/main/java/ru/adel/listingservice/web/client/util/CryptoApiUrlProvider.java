@@ -9,10 +9,10 @@ import java.util.Map;
 
 @Component
 @Getter
-public class CryptoApiUrls {
+public class CryptoApiUrlProvider {
     private final Map<String,String> urls= new HashMap<>();
 
-    public CryptoApiUrls(
+    public CryptoApiUrlProvider(
             @Value("${coinmarketcap.api.url.listings.latest.usd}") String urlUSD,
             @Value("${coinmarketcap.api.url.listings.latest.rub}") String urlRUB,
             @Value("${coinmarketcap.api.url.listings.latest.btc}")String urlBTC) {

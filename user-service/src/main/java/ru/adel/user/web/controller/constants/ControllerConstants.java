@@ -8,7 +8,7 @@ public final class ControllerConstants {
     public static final String FAVOURITE_COUNT ="favouriteCount";
     public static final String CASHED_FAVOURITES="cachedFavourites";
     public static final String CRYPTO = "crypto";
-    public static final String REDIRECT_PREFIX = "redirect:/user-api/crypto/name/";
+    public static final String REDIRECT_PREFIX = "redirect:/user-api/crypto/";
     public static final String COMMENTS = "comments";
     public static final String COMMENT = "comment";
     public static final String IN_FAVOURITE = "inFavourite";

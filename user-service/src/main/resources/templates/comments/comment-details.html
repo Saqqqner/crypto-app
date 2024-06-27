@@ -130,7 +130,7 @@
     <a th:href="@{/user-api/crypto}">Crypto-app</a>
 </div>
 <div class="back-button-container">
-    <a th:href="@{'/user-api/crypto/name/' + ${crypto.name}}">
+    <a th:href="@{'/user-api/crypto/' + ${crypto.name}}">
         <button class="back-button" th:text="'Вернуться к ' + ${crypto.name}">Вернуться к криптовалюте</button>
     </a>
 </div>
@@ -154,11 +154,11 @@
         </div>
     </div>
     <div class="form-container">
-        <form th:action="@{'/user-api/crypto/name/' + ${crypto.name} + '/comments/add-comment'}" method="post"
+        <form th:action="@{'/user-api/crypto/' + ${crypto.name} + '/comments/add-comment'}" method="post"
               enctype="application/x-www-form-urlencoded">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <input type="hidden" id="parentId" name="parentId" th:value="${comment.id}"/>
-            <label for="text"></label><textarea id="text" name="text" rows="4" th:placeholder="'Ответить ' + ${comment.username}"></textarea>
+            <label for="text"></label><textarea id="text" name="text" rows="4" th:placeholder="'Ответить ' + ${comment.username}"required></textarea>
             <button type="submit">Post</button>
         </form>
     </div>

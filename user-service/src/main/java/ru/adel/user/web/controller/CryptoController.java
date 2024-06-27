@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("user-api/crypto/name/{name}")
+@RequestMapping("user-api/crypto/{name}")
 @Slf4j
 @RequiredArgsConstructor
 public class CryptoController {
@@ -94,7 +94,6 @@ public class CryptoController {
             NewCommentDto commentDto,
             Model model,
             ServerHttpResponse response) {
-
         return cryptoDataMono.flatMap(cryptoData ->
                 commentWebClient.addComment(commentDto.getParentId(), cryptoData.getId(), commentDto.getText())
                         .flatMap(comment ->
@@ -161,7 +160,7 @@ public class CryptoController {
     }
     private String buildRedirectUrl(String cryptoName, String parentId) {
         if (parentId != null) {
-            return "redirect:/user-api/crypto/name/" + UriEncoder.encodeName(cryptoName) + "/comments/" + parentId;
+            return "redirect:/user-api/crypto/" + UriEncoder.encodeName(cryptoName) + "/comments/" + parentId;
         } else {
             return ControllerConstants.REDIRECT_PREFIX + UriEncoder.encodeName(cryptoName);
         }

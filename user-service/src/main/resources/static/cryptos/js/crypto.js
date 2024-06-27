@@ -1,12 +1,12 @@
 function redirectToComment(element) {
     const cryptoName = element.getAttribute('data-crypto-name');
     const commentId = element.getAttribute('data-id');
-    window.location.href = `/user-api/crypto/name/${cryptoName}/comments/${commentId}`;
+    window.location.href = `/user-api/crypto/${cryptoName}/comments/${commentId}`;
 }
 
 function toggleFavourite(element, add) {
     const cryptoName = element.getAttribute('data-crypto-name');
-    const url = add ? `/user-api/crypto/name/${cryptoName}/add-to-favourites` : `/user-api/crypto/name/${cryptoName}/remove-from-favourites`;
+    const url = add ? `/user-api/crypto/${cryptoName}/add-to-favourites` : `/user-api/crypto/${cryptoName}/remove-from-favourites`;
     fetch(url, {
         method: 'POST',
         headers: {

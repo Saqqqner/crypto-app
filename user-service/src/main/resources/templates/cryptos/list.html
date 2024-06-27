@@ -35,7 +35,7 @@
     <tbody>
     <tr th:each="crypto : ${cryptos}">
         <td th:text="${crypto.cmcRank}"></td>
-        <td><a th:href="@{'/user-api/crypto/name/' + ${crypto.name}}" th:text="${crypto.name + ' (' + crypto.symbol + ')'}"></a></td>
+        <td><a th:href="@{'/user-api/crypto/' + ${crypto.name}}" th:text="${crypto.name + ' (' + crypto.symbol + ')'}"></a></td>
         <td th:text="${crypto.quote['USD'].getFormattedPrice()}"></td>
         <td th:text="${crypto.quote['USD'].getFormattedPercentChange1h()}"
         th:classappend="${crypto.quote['USD'].percentChange1h >= 0} ? 'positive-change' : 'negative-change'"></td>

@@ -1,8 +1,8 @@
-package ru.adel.user.util.comparator.impl;
+package ru.adel.user.util.sort.comparator.impl;
 
 import org.springframework.stereotype.Component;
 import ru.adel.user.domain.model.CryptoData;
-import ru.adel.user.util.comparator.CryptoDataComparator;
+import ru.adel.user.util.sort.comparator.CryptoDataComparator;
 
 import java.util.Comparator;
 

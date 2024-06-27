@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.adel.listingservice.domain.exception.AppException;
@@ -34,7 +33,7 @@ public class CryptoDataApiClientAction implements ApiClientAction {
             service.saveAllData(mergedCryptoDataList);
             log.info("Данные успешно сохранены");
         } catch (JsonProcessingException e) {
-            log.warn(e.getMessage(),e);
+            log.warn(e.getMessage(), e);
             throw new AppException(e);
         }
     }
@@ -43,7 +42,8 @@ public class CryptoDataApiClientAction implements ApiClientAction {
         List<CryptoData> combinedCryptoDataList = new ArrayList<>();
         for (String json : data) {
             ResponseAPI<List<CryptoData>> response = objectMapper.readValue(
-                    json, new TypeReference<ResponseAPI<List<CryptoData>>>() {});
+                    json, new TypeReference<ResponseAPI<List<CryptoData>>>() {
+                    });
             combinedCryptoDataList.addAll(response.data());
         }
         return combinedCryptoDataList;

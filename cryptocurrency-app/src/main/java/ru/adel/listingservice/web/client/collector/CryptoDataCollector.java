@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.adel.listingservice.web.client.CoinMarketCapApiClient;
 import ru.adel.listingservice.web.client.action.ApiClientAction;
 import ru.adel.listingservice.web.client.context.ApiClientContext;
-import ru.adel.listingservice.web.client.util.CryptoApiUrls;
+import ru.adel.listingservice.web.client.util.CryptoApiUrlProvider;
 
 @Component
 @Slf4j
@@ -15,7 +15,7 @@ public class CryptoDataCollector implements DataCollector {
     private final ApiClientContext clientContext;
 
     public CryptoDataCollector(CoinMarketCapApiClient coinMarketCapApiClient,
-                               ApiClientContext clientContext, CryptoApiUrls cryptoApiUrls,
+                               ApiClientContext clientContext, CryptoApiUrlProvider cryptoApiUrls,
                                ApiClientAction apiClientAction) {
         this.coinMarketCapApiClient = coinMarketCapApiClient;
         this.clientContext = clientContext;

@@ -8,13 +8,9 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ResponseStatus(
         @JsonProperty("error_code") Long errorCode,
-
         @JsonProperty("error_message") String errorMessage,
-
         @JsonProperty("elapsed") Long elapsed,
-
         @JsonProperty("timestamp") Date timestamp,
-
         @JsonProperty("notice") String notice
 ) {
 

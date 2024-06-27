@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import ru.adel.user.domain.model.CryptoData;
 import ru.adel.user.util.sort.CryptoSorter;
-import ru.adel.user.util.comparator.CryptoDataComparator;
+import ru.adel.user.util.sort.comparator.CryptoDataComparator;
 
 import java.util.Comparator;
 import java.util.List;
@@ -25,11 +25,12 @@ public class CryptoSorterImpl implements CryptoSorter {
     }
     private Comparator<CryptoData> getComparator(String sortField, String sortDirection) {
         CryptoDataComparator cryptoDataComparator = comparatorMap.get(sortField);
+
         if (cryptoDataComparator == null) {
             throw new IllegalArgumentException("Unsupported sort field: " + sortField);
         }
         Comparator<CryptoData> comparator = cryptoDataComparator.getComparator();
-        if ("desc".equals(sortDirection)) {
+        if ("desc".equalsIgnoreCase(sortDirection)) {
             comparator = comparator.reversed();
         }
         return comparator;

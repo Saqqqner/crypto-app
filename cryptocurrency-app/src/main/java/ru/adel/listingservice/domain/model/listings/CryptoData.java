@@ -22,10 +22,8 @@ public class CryptoData {
     private Long id;
     @Field(type = FieldType.Text)
     private String name;
-
     @Field(type = FieldType.Keyword)
     private String symbol;
-
     @Field(type = FieldType.Keyword)
     private String slug;
     @JsonProperty("num_market_pairs")
@@ -47,27 +45,6 @@ public class CryptoData {
     @JsonProperty("last_updated")
     private Date lastUpdate;
     private Map<String, CryptoQuote> quote;
-
-    @Override
-    public String toString() {
-        return "ListingData{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", symbol='" + symbol + '\'' +
-                ", slug='" + slug + '\'' +
-                ", numMarketPairs=" + numMarketPairs +
-                ", dateAdded=" + dateAdded +
-                ", tags=" + tags +
-                ", maxSupply=" + maxSupply +
-                ", circulatingSupply=" + circulatingSupply +
-                ", totalSupply=" + totalSupply +
-                ", infiniteSupply=" + infiniteSupply +
-                ", platform=" + platform +
-                ", cmcRank=" + cmcRank +
-                ", lastUpdate=" + lastUpdate +
-                ", quote=" + quote +
-                '}';
-    }
 }
 
 

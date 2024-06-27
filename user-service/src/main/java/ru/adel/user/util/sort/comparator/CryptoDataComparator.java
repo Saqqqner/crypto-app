@@ -1,4 +1,4 @@
-package ru.adel.user.util.comparator;
+package ru.adel.user.util.sort.comparator;
 
 import ru.adel.user.domain.model.CryptoData;
 
